@@ -2,3 +2,23 @@
     max-height: 250px;
     overflow: scroll;
 }
+
+p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: x-large;
+    color: black;
+    background-color: brown;
+}
+
+/*  Adding color and writing styles for a better look */
+body {
+    background-color: black;
+    color: green;
+    font-family: 'Marker Felt, fantasy';
+}
+
+/* A simple border color as needed  */
+textarea {
+    border-color: blue;
+}
+
