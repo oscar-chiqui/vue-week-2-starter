@@ -22,3 +22,14 @@ textarea {
     border-color: blue;
 }
 
+.Sketching { 
+    background-color: pink;
+}
+
+.Drawing {
+    background-color: yellow;
+}
+
+.Painting {
+    background-color: aqua;
+}
