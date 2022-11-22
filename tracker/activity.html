@@ -125,13 +125,13 @@
                         </tr>
                         <!-- Use v-for to create one table row for each activity record -->
 
-                        <tr v-for="record in activityRecords">
+                        <tr v-for="record in activityRecords" v-bind:class="record.type">
                             <td>{{shortDate(record.date ) }}</td>
                             <td>{{record.hours}}</td>
                             <td>{{record.type}}</td>
                             <td>{{record.medium}}</td>
-                            <td>{{ record.completedBox}}</td>
-                            <td>{{ record.Comments}}</td>
+                            <td>{{record.completedBox}}</td>
+                            <td>{{shortComment(record.Comments)}}</td>
 
                         </tr>
                     </table>
@@ -146,7 +146,9 @@
             <div class="card-body">
 
                 <!-- add computed property to calculate the total hours -->
-                <p>You have practiced a total of {{ totalHours }}/p>
+                <!-- make sure your HTML is perfect, no missing < or tags, 
+                    otherwise you'll get errors when we start using Vue components -->
+                <p>You have practiced a total of {{ totalHours }}</p>
 
                 <!-- Challenge question! Display a list of the total hours for each type.  -->
           
@@ -168,10 +170,10 @@
                 // v-modeled to the forms input
                 dateString : '',
                 hours: 1, 
-                type: 'Sketching',
-                medium: 'traditional',
+                type: 'Sketching',  // this should be one of the values from the types array
+                medium: 'Traditional',  // uppercase T
 
-                types: ['sketching','Drawing','Painting'],
+                types: ['Sketching','Drawing','Painting'],  // uppercase S in Sketching
 
         // Empty properties
 
@@ -203,9 +205,11 @@
                     this.errors.push("Select a medium")
                 }
 
-                if (this.Comments.length > 40 ) {
-                    this.errors.push(`You can't add more than 40 characters`)
-                }
+                // you can add a comment more than 40 characters, but when it's displayed,
+                // only display the first 40 characters.
+                // if (this.Comments.length > 40 ) {
+                //     this.errors.push(`You can't add more than 40 characters`)
+                // }
 
                 if (this.errors.length === 0) {
                     let record = {
@@ -229,6 +233,14 @@
             },
             shortDate(date) {
                 return new Intl.DateTimeFormat('en-US', {timeZone: 'UTC'}).format(date)
+            },
+            shortComment(comment) {
+                // if comment is more than 40 characters, truncate it and add ...
+                if (comment.length > 40) {
+                    comment = comment.substring(0, 40) + '...'
+                }
+                // if comment is less than 40 characters, it will not be modified, return original 
+                return comment
             }
         },
 
